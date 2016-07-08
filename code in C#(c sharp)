@@ -1,0 +1,77 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace HMT_Suppliersource_code_Generator
+{
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+
+            string name = textBox2.Text;
+            char[] namearray = name.ToCharArray();
+            char firstchar = namearray[0];
+            int charrep = Convert.ToInt32(firstchar) - 96;
+
+
+            int cat = Convert.ToInt32(textBox.Text);
+
+            int repeat = 1 + Convert.ToInt32(textBox1.Text);
+
+            int finalrepeat = repeat % 100;
+            charrep = charrep + (26 * (repeat / 100));
+            int[] code = new int[6];
+            code[0] = cat;
+            code[1] = charrep / 10;
+            code[2] = charrep % 10;
+            code[3] = finalrepeat / 10;
+            code[4] = finalrepeat % 10;
+            int[] dumpcode = new int[5];
+            dumpcode[0] = (code[0] * 3) % 10;
+            dumpcode[1] = (code[1] * 7) % 10;
+            dumpcode[2] = (code[2] * 1) % 10;
+            dumpcode[3] = (code[3] * 3) % 10;
+            dumpcode[4] = (code[4] * 7) % 10;
+            int dumpvalue = dumpcode[0] + dumpcode[1] + dumpcode[2] + dumpcode[3] + dumpcode[4];
+            code[5] = dumpvalue % 10;
+            MessageBox.Show($"Supplier source code is {code[0]}{code[1]}{code[2]}{code[3]}{code[4]}{code[5]}");
+        }
+
+        private void textBox2_TextChanged(object sender, TextChangedEventArgs e)
+        {
+        }
+
+        private void textBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            
+        }
+
+        private void textBox1_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            
+
+        }
+
+        
+    }
+}
